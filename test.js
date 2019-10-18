@@ -1,13 +1,38 @@
 import test from "ava"
-import theModule from "."
+import defaultExports from "."
 
 test("main", (t) => {
     t.throws(() => {
-        theModule(123)
+        defaultExports()
     }, {
-        instanceOf: TypeError,
-        message: "Expected a string, got number",
+        instanceOf: ReferenceError,
+        message: "Invalid parameters provided!",
+    })
+})
+
+test("defaultExports(forExport)", (t) => {
+    const a = ["a"]
+    const b = ["b"]
+
+    const result = defaultExports({
+        a,
+        b,
     })
 
-    t.is(theModule("unicorns"), "unicorns & rainbows")
+    t.is(result, a)
+    t.is(result.a, a)
+    t.is(result.b, b)
+})
+
+test("defaultExports(defaultExport, otherExports)", (t) => {
+    const a = ["a"]
+    const b = ["b"]
+
+    const result = defaultExports(a, {
+        b,
+    })
+
+    t.is(result, a)
+    t.falsy(result.a)
+    t.is(result.b, b)
 })

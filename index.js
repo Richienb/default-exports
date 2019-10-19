@@ -12,6 +12,9 @@ function setProto(obj, newProto) {
 
 module.exports = (forExport, otherExports) => {
     if (forExport && otherExports) return setProto(forExport, otherExports)
-    else if (forExport && !otherExports) return setProto(_.values(forExport)[0], forExport)
-    else throw new ReferenceError("Invalid parameters provided!")
+    else if (forExport && !otherExports) {
+        let o = _.values(forExport)[0]
+        o = _.isFunction(o) ? o.bind() : _.clone(o)
+        return setProto(o, forExport)
+    } else throw new ReferenceError("Invalid parameters provided!")
 }

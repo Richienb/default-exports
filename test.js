@@ -11,28 +11,26 @@ test("main", (t) => {
 })
 
 test("defaultExports(forExport)", (t) => {
-    const a = ["a"]
-    const b = ["b"]
-
     const result = defaultExports({
-        a,
-        b,
+        a: () => "a",
+        b: () => "b",
+        c: "c",
     })
 
-    t.is(result, a)
-    t.is(result.a, a)
-    t.is(result.b, b)
+    t.is(result(), "a")
+    t.is(result.a(), "a")
+    t.is(result.b(), "b")
+    t.is(result.c, "c")
+    t.falsy(result.a.a)
+    t.falsy(result.a.b)
 })
 
 test("defaultExports(defaultExport, otherExports)", (t) => {
-    const a = ["a"]
-    const b = ["b"]
-
-    const result = defaultExports(a, {
-        b,
+    const result = defaultExports(() => "a", {
+        b: () => "b",
     })
 
-    t.is(result, a)
+    t.is(result(), "a")
     t.falsy(result.a)
-    t.is(result.b, b)
+    t.is(result.b(), "b")
 })

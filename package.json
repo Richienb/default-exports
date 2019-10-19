@@ -1,6 +1,6 @@
 {
     "name": "default-exports",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "Use default exports and named exports at the same time in CommonJS.",
     "repository": "https://github.com/Richienb/default-exports.git",
     "author": "Richie Bendall <richiebendall@gmail.com>",
